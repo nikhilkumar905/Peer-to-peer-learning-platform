@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<div class="dashboard">
+  <div class="icons">
+    <div class="icon" id="viewProfile">
+      <img src="" alt="Profile" />
+      <p>VIEW PROFILE</p>
+    </div>
+
+    <div class="icon-with-logout">
+      <div class="icon" id="openNotifications" style="position: relative;">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyFCM0x2-5Vtapzx5zCNjJ-yIVcIoJzHQXkw&s" alt="Notifications"/>
+        <span id="notificationCount" class="notif-count">3</span>
+        <p>NOTIFICATION</p>
+      </div>
+
+      <div class="icon small-icon" id="logoutBtn">
+        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828479.png" alt="Logout"/>
+        <p>LOGOUT</p>
+      </div>
+    </div>
+
+    <div class="icon" id="openChat">
+      <img src="https://png.pngtree.com/png-clipart/20191120/original/pngtree-chat-icon-png-image_5065642.jpg" alt="Chat"/>
+      <p>CHAT</p>
+    </div>
+  </div>
+</div>
+
+<!-- Profile Modal -->
+<div id="profileModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeProfile">&times;</span>
+    <img id="profileImage" class="profile-pic">
+    <h3 id="profileName"></h3>
+    <p id="profileEmail"></p>
+    <p id="profileContact"></p>
+    <p id="profileSkills"></p>
+    <p id="profileTopics"></p>
+    <p id="profileYear"></p>
+    <p id="profileCourse"></p>
+    <button id="editProfile">EDIT PROFILE</button>
+  </div>
+</div>
+
+<!-- Edit Profile Modal -->
+<div id="editProfileModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeEditProfile">&times;</span>
+    <h3>Edit Profile</h3>
+    <input type="text" id="editName" placeholder="Name"><br><br>
+    <input type="text" id="editEmail" placeholder="Email"><br><br>
+    <input type="text" id="editContact" placeholder="Contact"><br><br>
+    <input type="text" id="editSkills" placeholder="Skills"><br><br>
+    <input type="text" id="editTopics" placeholder="Topics to Teach"><br><br>
+    <input type="text" id="editYear" placeholder="Year"><br><br>
+    <input type="text" id="editCourse" placeholder="Course"><br><br>
+    <button id="saveProfile">Save</button>
+  </div>
+</div>
+
+<!-- Notification Box -->
+<div id="notificationBox" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeNotification">&times;</span>
+    <h3>NOTIFICATIONS:</h3>
+    <div class="notification">
+      <img src="https://media.istockphoto.com/id/1495088043/vector/user-profile-icon-avatar-or-person-icon-profile-picture-portrait-symbol-default-portrait.jpg?s=612x612&w=0&k=20&c=dhV2p1JwmloBTOaGAtaA3AW1KSnjsdMt7-U_3EZElZ0=" class="notif-pic"> John, you have a new message.
+    </div>
+    <div class="notification">
+      <img src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg" class="notif-pic"> Scarlet has followed you.
+    </div>
+    <div class="notification">
+      <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="notif-pic"> Your post got 10 likes.
+    </div>
+  </div>
+</div>
+
+<!-- Chat Box -->
+<div id="chatBox" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeChat">&times;</span>
+    <h3>Chat</h3>
+    <div id="chatUsers"></div>
+    <div id="chatMessages"></div>
+    <input type="text" id="chatInput" placeholder="Type your text...">
+    <button id="sendChat">Send</button>
+  </div>
+</div>
+
+<script src="dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Profile</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a3f2e, #b9c2ae);
+            text-align: center;
+            padding: 50px;
+            margin: 0;
+            color: #fff;
+        }
+
+        .profile-box {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 40px 30px;
+            max-width: 420px;
+            margin: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .profile-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .profile-box img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #0c2812;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            margin-bottom: 25px;
+        }
+
+        .profile-box h2 {
+            margin: 10px 0;
+            color: #050c15;
+        }
+
+        .profile-box p {
+            margin: 5px 0;
+            font-size: 16px;
+            color: #2d0606;
+        }
+
+        .bio {
+            margin-top: 20px;
+            font-style: italic;
+            font-size: 15px;
+            color: #555;
+        }
+
+        .btn-container {
+            margin-top: 25px;
+        }
+
+        .btn-container button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            background-color: #335c29;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-container button:hover {
+            background-color: #09131d;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="profile-box" id="profileContainer">
+        <img id="profilePic" src="" alt="Profile Image">
+        <h2 id="studentName"></h2>
+        <p id="studentEmail"></p>
+        <p id="studentContact"></p>
+        <p id="studentBio" class="bio"></p>
+
+        <!-- Group Buttons -->
+        <div class="btn-container">
+            <button onclick="window.location.href='creategroup.html'">Create Group</button>
+            <button onclick="window.location.href='my-groups.html'">My Groups</button>
+        </div>
+    </div>
+
+    <script>
+        const student = JSON.parse(localStorage.getItem("currentProfileStudent"));
+
+        if (student) {
+            document.getElementById("profilePic").src = student.image || "";
+            document.getElementById("studentName").innerText = student.name || "";
+            document.getElementById("studentEmail").innerText = "Email: " + (student.email || "");
+            document.getElementById("studentContact").innerText = "Contact: " + (student.contact || "");
+            document.getElementById("studentBio").innerText = student.bio || "“Passionate learner ready to explore new knowledge.”";
+        } else {
+            document.getElementById("profileContainer").innerHTML = "<p>Student not found. Please log in again.</p>";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teachers</title>
+    <link rel="stylesheet" href="teachers.css">
+</head>
+<body>
+    
+    
+    <div class="container">
+        <h1>Our Teachers</h1>
+        <input type="text" id="searchBox" placeholder="Search by skill or topic..." onkeyup="filterTeachers()">
+        <div id="teacherList"></div>
+    </div>
+
+    <!-- Chat Popup -->
+    <div id="chatPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup('chatPopup')">&times;</span>
+            <h3 id="chatTeacherName"></h3>
+            <div class="chat-messages"></div>
+            <input type="text" id="chatInput" placeholder="Type a message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <!-- Rating Popup -->
+    <div id="ratingPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup('ratingPopup')">&times;</span>
+            <h3>Rate This Teacher</h3>
+            <div class="stars">
+                <span class="star" onclick="setRating(1)">★</span>
+                <span class="star" onclick="setRating(2)">★</span>
+                <span class="star" onclick="setRating(3)">★</span>
+                <span class="star" onclick="setRating(4)">★</span>
+                <span class="star" onclick="setRating(5)">★</span>
+            </div>
+            <button onclick="submitRating()">Submit Rating</button>
+        </div>
+    </div>
+
+    <script src="teachers.js"></script>
+</body>
+</html>

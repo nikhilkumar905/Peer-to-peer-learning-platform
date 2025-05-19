@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Group</title>
+  <style>
+    body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background: linear-gradient(-45deg, #523334, #285443, #1f1121, #c2e9fb);
+    background-size: 400% 400%;
+    animation: gradientBG 12s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+
+    h1 {
+      color: #ce9193;
+      font-size: 32px;
+      margin-bottom: 20px;
+      margin-left: 650px;
+    }
+
+    #groupForm {
+      margin-bottom: 30px;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+      width: 250px;
+      border: 2px solid #a06085;
+      border-radius: 6px;
+      margin-right: 10px;
+      margin-left:650px;
+    }
+
+    .submit-btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #0d47a1;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .submit-btn:hover {
+      background-color: #093170;
+    }
+
+    .students-container {
+      display: none;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .student-card {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      width: 240px;
+      transition: transform 0.3s;
+    }
+
+    .student-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .student-card img {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 12px;
+      border: 3px solid #0d47a1;
+    }
+
+    .student-card h3 {
+      margin: 6px 0;
+      font-size: 20px;
+      color: #0d47a1;
+    }
+
+    .student-card p {
+      margin: 4px 0;
+      color: #333;
+      font-size: 14px;
+    }
+
+    .add-btn {
+      background-color: #4caf50;
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 12px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .add-btn:hover {
+      background-color: #388e3c;
+    }
+
+    .finish-btn {
+      margin-top: 30px;
+      padding: 10px 30px;
+      font-size: 16px;
+      background-color: #102c56;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-left: 670px;
+    }
+
+    .finish-btn:hover {
+      background-color: #093170;
+    }
+
+    .no-data {
+      font-size: 18px;
+      color: #333;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Create a Group</h1>
+
+  <div id="groupForm">
+    <input type="text" id="groupNameInput" placeholder="Enter Group Name">
+    <button class="submit-btn" onclick="createGroup()">Next</button>
+  </div>
+
+  <div class="students-container" id="studentList"></div>
+  <button id="finishBtn" class="finish-btn" style="display:none" onclick="saveGroup()">Finish & Save Group</button>
+
+  <script>
+    const selectedMembers = [];
+    const currentStudent = JSON.parse(localStorage.getItem("currentProfileStudent"));
+
+    function createGroup() {
+      const groupName = document.getElementById("groupNameInput").value.trim();
+      if (!groupName) {
+        alert("Please enter a group name first!");
+        return;
+      }
+
+      localStorage.setItem("currentGroupName", groupName);
+
+      const studentList = JSON.parse(localStorage.getItem("learnersList")) || [];
+      const container = document.getElementById("studentList");
+      container.innerHTML = "";
+      container.style.display = "flex";
+
+      if (studentList.length === 0) {
+        container.innerHTML = "<p class='no-data'>No student profiles found.</p>";
+      } else {
+        studentList.forEach(student => {
+          const card = document.createElement("div");
+          card.className = "student-card";
+          card.id = `student-${student.name}`;
+
+          card.innerHTML = `
+            <img src="${student.image || ''}" alt="Student Image">
+            <h3>${student.name}</h3>
+            <p>Email: ${student.email}</p>
+            <p>Contact: ${student.contact}</p>
+            <button class="add-btn" onclick="addToGroup('${student.name}')">Add</button>
+          `;
+
+          container.appendChild(card);
+        });
+
+        document.getElementById("finishBtn").style.display = "inline-block";
+      }
+    }
+
+    function addToGroup(name) {
+      if (!selectedMembers.includes(name)) {
+        selectedMembers.push(name);
+        const btn = document.querySelector(`#student-${name} .add-btn`);
+        if (btn) {
+          btn.textContent = "Added";
+          btn.disabled = true;
+          btn.style.backgroundColor = "#888";
+        }
+      }
+    }
+
+    function saveGroup() {
+      const groupName = localStorage.getItem("currentGroupName");
+
+      if (!groupName || selectedMembers.length === 0) {
+        alert("Group name or members missing!");
+        return;
+      }
+
+      const allGroups = JSON.parse(localStorage.getItem("studentGroups")) || [];
+
+      allGroups.push({
+        groupName: groupName,
+        members: selectedMembers,
+        createdBy: currentStudent.name
+      });
+
+      localStorage.setItem("studentGroups", JSON.stringify(allGroups));
+      alert("Group created successfully!");
+
+      // Optionally redirect
+      window.location.href = "my-groups.html";
+    }
+  </script>
+
+</body>
+</html>

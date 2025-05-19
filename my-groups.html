@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Groups</title>
+  <style>
+    body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background: linear-gradient(-45deg, #5da395, #552d22, #1e3a69, #1d3540);
+    background-size: 400% 400%;
+    animation: gradientBG 12s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+
+    h1 {
+      text-align: center;
+      color: #006064;
+      margin-bottom: 30px;
+    }
+
+    .group-container {
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      margin: 20px auto;
+      padding: 20px;
+      max-width: 800px;
+    }
+
+    .group-header {
+      font-size: 20px;
+      font-weight: bold;
+      color: #00796b;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: color 0.3s ease;
+    }
+
+    .group-header:hover {
+      color: #004d40;
+    }
+
+    .arrow-icon {
+      font-size: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .group-header.collapsed .arrow-icon {
+      transform: rotate(-90deg);
+    }
+
+    .members {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .member-card {
+      background-color: #b2dfdb;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-weight: bold;
+      color: #004d40;
+    }
+
+    .chat-box {
+      margin-top: 20px;
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+      padding: 0 10px;
+    }
+
+    .chat-box.active {
+      max-height: 420px;
+      padding: 15px;
+    }
+
+    .messages {
+      height: 230px;
+      overflow-y: auto;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      background: #f5f5f5;
+      margin-bottom: 12px;
+    }
+
+    .messages p {
+      margin: 10px 0;
+      padding: 8px 14px;
+      background-color: #e0f2f1;
+      border-radius: 8px;
+      max-width: 70%;
+      word-wrap: break-word;
+    }
+
+    .messages p.sender {
+      background-color: #00796b;
+      color: white;
+      margin-left: auto;
+      text-align: right;
+    }
+
+    .chat-input {
+      display: flex;
+      gap: 10px;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 10px 15px;
+      border: 1px solid #aaa;
+      border-radius: 8px;
+      outline: none;
+    }
+
+    .chat-input button {
+      padding: 10px 18px;
+      background-color: #00796b;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .chat-input button:hover {
+      background-color: #004d40;
+    }
+
+    .no-groups {
+      text-align: center;
+      color: #555;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>My Groups</h1>
+  <div id="groupsContainer"></div>
+
+  <script>
+    const loggedInStudent = JSON.parse(localStorage.getItem("currentProfileStudent"));
+    const allGroups = JSON.parse(localStorage.getItem("studentGroups")) || [];
+    const myGroups = allGroups.filter(group => group.createdBy === loggedInStudent.name);
+    const container = document.getElementById("groupsContainer");
+
+    if (myGroups.length === 0) {
+      container.innerHTML = "<p class='no-groups'>You have not created any groups yet.</p>";
+    } else {
+      myGroups.forEach(group => {
+        const groupDiv = document.createElement("div");
+        groupDiv.className = "group-container";
+
+        const safeGroupName = group.groupName.replace(/\s+/g, '-');
+        const membersHTML = group.members.map(member => `<div class="member-card">${member}</div>`).join('');
+
+        groupDiv.innerHTML = `
+          <div class="group-header" onclick="toggleChat('${safeGroupName}', this)">
+            ${group.groupName}
+            <span class="arrow-icon">▶</span>
+          </div>
+          <div class="members">${membersHTML}</div>
+          <div class="chat-box" id="chatbox-${safeGroupName}">
+            <div class="messages" id="messages-${safeGroupName}"></div>
+            <div class="chat-input">
+              <input type="text" id="input-${safeGroupName}" placeholder="Type a message..." />
+              <button onclick="sendMessage('${group.groupName}')">Send</button>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(groupDiv);
+        loadMessages(group.groupName);
+      });
+    }
+
+    function toggleChat(safeGroupName, headerElement) {
+      const chatBox = document.getElementById("chatbox-" + safeGroupName);
+      chatBox.classList.toggle("active");
+      headerElement.classList.toggle("collapsed");
+    }
+
+    function loadMessages(groupName) {
+      const safeName = groupName.replace(/\s+/g, '-');
+      const msgBox = document.getElementById("messages-" + safeName);
+      const chatKey = "groupChat_" + groupName;
+      const messages = JSON.parse(localStorage.getItem(chatKey)) || [];
+
+      msgBox.innerHTML = messages.map(msg => {
+        const isSender = msg.sender === loggedInStudent.name;
+        return `<p class="${isSender ? 'sender' : ''}"><strong>${isSender ? 'You' : msg.sender}:</strong> ${msg.text}</p>`;
+      }).join('');
+      msgBox.scrollTop = msgBox.scrollHeight;
+    }
+
+    function sendMessage(groupName) {
+      const safeName = groupName.replace(/\s+/g, '-');
+      const input = document.getElementById("input-" + safeName);
+      const text = input.value.trim();
+      if (!text) return;
+
+      const chatKey = "groupChat_" + groupName;
+      const messages = JSON.parse(localStorage.getItem(chatKey)) || [];
+      messages.push({ sender: loggedInStudent.name, text });
+      localStorage.setItem(chatKey, JSON.stringify(messages));
+
+      input.value = "";
+      loadMessages(groupName);
+    }
+  </script>
+</body>
+</html>

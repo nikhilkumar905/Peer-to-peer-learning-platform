@@ -1,0 +1,316 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background: linear-gradient(-45deg, #366646, #443f61, #814c4c, #2c5061);
+    background-size: 400% 400%;
+    animation: gradientBG 12s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+
+.dashboard {
+    margin-top: 100px;
+}
+
+.icons {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+.icon {
+    cursor: pointer;
+    text-align: center;
+}
+
+.icon img {
+    width: 150px;
+    height: 150px;
+}
+
+.icon p {
+    font-weight: bold;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translate(-50%, -60%); }
+    to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+.modal-content {
+    padding: 30px 20px;
+    position: relative;
+    text-align: center;
+}
+
+.close {
+    position: absolute;
+    top: 12px;
+    right: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+}
+
+.profile-pic {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #007BFF;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.notif-pic {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.notification {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.chat-message {
+    background: #f1f1f1;
+    padding: 5px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+#chatInput {
+    width: 80%;
+    padding: 5px;
+}
+
+button {
+    background-color: blue;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.modal-content h3 {
+    margin-top: 10px;
+    margin-bottom: 8px;
+    font-size: 22px;
+    color: #333;
+}
+
+.modal-content p {
+    margin: 5px 0;
+    color: #555;
+    font-size: 16px;
+}
+
+#editProfile {
+    margin-top: 15px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#editProfile:hover {
+    background-color: #0056b3;
+}
+.notif-count {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background: red;
+    color: white;
+    border-radius: 50%;
+    font-size: 12px;
+    padding: 2px 6px;
+}
+
+#chatUsers {
+    text-align: left;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #444;
+}
+
+#chatMessages {
+    height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #f9f9f9;
+}
+.icon-with-logout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.small-icon img {
+    width: 50px;
+    height: 50px;
+}
+#chatBox {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #5d9c96, #e0f7fa);
+    width: 360px;
+    max-width: 90%;
+    border-radius: 18px;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    overflow: hidden;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+#chatBox .modal-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+}
+
+#chatUsers {
+    max-height: 100px;
+    overflow-y: auto;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 10px;
+}
+
+.chat-user {
+    padding: 10px 14px;
+    background: linear-gradient(to right, #fceabb, #f8b500);
+    border-radius: 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    color: #333;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chat-user:hover {
+    transform: scale(1.03);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+#chatMessages {
+    flex-grow: 1;
+    overflow-y: auto;
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    border: 2px solid #eee;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    scroll-behavior: smooth;
+}
+
+.chat-message {
+    padding: 10px 16px;
+    margin: 6px 0;
+    border-radius: 20px;
+    font-size: 14px;
+    line-height: 1.4;
+    max-width: 75%;
+    word-wrap: break-word;
+    animation: slideUp 0.3s ease;
+}
+
+.chat-message:nth-child(odd) {
+    background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+    align-self: flex-start;
+    color: #000;
+}
+
+.chat-message:nth-child(even) {
+    background: linear-gradient(to right, #c2fbcf, #a6c1ee);
+    align-self: flex-end;
+    color: #000;
+}
+
+#chatInput {
+    width: calc(100% - 80px);
+    padding: 10px 15px;
+    border: 2px solid #ddd;
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+    background: #fff0f5;
+    transition: border-color 0.3s ease;
+}
+
+#chatInput:focus {
+    border-color: #f06292;
+}
+
+#sendChat {
+    background: linear-gradient(to right, #274068, #ff7eb3);
+    border: none;
+    border-radius: 20px;
+    padding: 10px 15px;
+    margin-left: 10px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#sendChat:hover {
+    background: linear-gradient(to right, #ff6a88, #ff99ac);
+}
+
+#closeChat {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #444;
+    cursor: pointer;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}

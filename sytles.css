@@ -1,0 +1,113 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background: linear-gradient(-45deg, #876464, #475955, #7a8ba6, #713030);
+    background-size: 400% 400%;
+    animation: gradientBG 12s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+
+.logo {
+    width: 470px;
+    margin-top: 20px;
+    margin-left:850px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 150px;
+}
+
+.section {
+    margin: 20px;
+    text-align: center;
+}
+
+.main-btn, .sub-btn {
+    display: block;
+    width: 200px;
+    padding: 10px;
+    margin: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
+
+.main-btn {
+    background-color: #254c26;
+    color: white;
+}
+
+.sub-btn {
+    background-color: #511c24;
+    color: rgb(245, 243, 243);
+}
+
+.form-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #e1e3da;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+}
+
+.form-container {
+    text-align: left;
+}
+
+.form-container h2 {
+    text-align: center;
+}
+
+.form-container input {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+}
+
+.save-btn, .enter-btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background: #18215b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.close-btn {
+    float: right;
+    cursor: pointer;
+    font-size: 20px;
+}
+.profile-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease;
+}
+
+.profile-icon:hover {
+    transform: scale(1.05);
+}

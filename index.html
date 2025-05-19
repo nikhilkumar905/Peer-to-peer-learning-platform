@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friend's Pathshala</title>
+    <link rel="stylesheet" href="sytles.css">
+</head>
+<body>
+    <div class="container">
+        <img src="friends_pathshala_logo-removebg-preview.png" alt="Friend's Pathshala" class="logo">
+        
+        <div class="buttons">
+            <div class="section">
+                <button class="main-btn" onclick="openForm('learnForm')">Become Student</button>
+                <button class="sub-btn" onclick="openForm('enterLearnForm')">Find Mentor</button>
+            </div>
+            
+            <div class="section">
+                <button class="main-btn" onclick="openForm('teachForm')">Become Mentor</button>
+                <button class="sub-btn" onclick="openForm('enterTeachForm')">Mentor</button>
+            </div>
+        </div>
+
+        <!-- Learn Form -->
+        <div id="learnForm" class="form-popup">
+            <div class="form-container">
+                <span class="close-btn" onclick="closeForm('learnForm')">&times;</span>
+                <h2>Enter Your Details</h2>
+                <input type="text" id="learnName" placeholder="Name">
+                <input type="email" id="learnEmail" placeholder="Email">
+                <input type="text" id="learnContact" placeholder="Contact">
+                <input type="file" id="learnImage">
+                <input type="password" id="learnPassword" placeholder="Password">
+                <button class="save-btn" onclick="saveData('learn')">Save</button>
+            </div>
+        </div>
+
+        <!-- Teach Form -->
+        <div id="teachForm" class="form-popup">
+            <div class="form-container">
+                <span class="close-btn" onclick="closeForm('teachForm')">&times;</span>
+                <h2>Enter Your Details</h2>
+                <input type="text" id="teachName" placeholder="Name">
+                <input type="email" id="teachEmail" placeholder="Email">
+                <input type="text" id="teachContact" placeholder="Contact">
+                <input type="text" id="teachCourse" placeholder="Course">
+                <input type="text" id="teachYear" placeholder="Year">
+                <input type="text" id="teachSkills" placeholder="Skills">
+                <input type="text" id="teachTopics" placeholder="Topics You Can Teach">
+                <input type="file" id="teachImage">
+                <input type="password" id="teachPassword" placeholder="Password">
+                <button class="save-btn" onclick="saveData('teach')">Save</button>
+            </div>
+        </div>
+
+        <!-- Enter to Learn Form -->
+        <div id="enterLearnForm" class="form-popup">
+            <div class="form-container">
+                <span class="close-btn" onclick="closeForm('enterLearnForm')">&times;</span>
+                <h2>Enter Your Credentials</h2>
+                <input type="text" id="enterLearnName" placeholder="Name">
+                <input type="password" id="enterLearnPassword" placeholder="Password">
+                <button class="enter-btn" onclick="verifyLogin('learn')">Enter</button>
+            </div>
+        </div>
+
+        <!-- Enter to Teach Form -->
+        <div id="enterTeachForm" class="form-popup">
+            <div class="form-container">
+                <span class="close-btn" onclick="closeForm('enterTeachForm')">&times;</span>
+                <h2>Enter Your Credentials</h2>
+                <input type="text" id="enterTeachName" placeholder="Name">
+                <input type="password" id="enterTeachPassword" placeholder="Password">
+                <button class="enter-btn" onclick="verifyLogin('teach')">Enter</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
